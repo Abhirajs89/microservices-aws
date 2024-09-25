@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appointment-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: appointment-service
+  template:
+    metadata:
+      labels:
+        app: appointment-service
+    spec:
+      containers:
+        - name: appointment-service
+          image: <ECR>
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8082
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appointment-service
+spec:
+  selector:
+    app: appointment-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8082
+  type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-patient-to-appointment
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      app: appointment-service
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: patient-service
