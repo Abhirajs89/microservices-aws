@@ -11,11 +11,13 @@ Appointment Service:
 Endpoints:
 =================================================================
 Patient Service Endpoints
-localhost:8081/patients/ - create patients 
-localhost:8081/patients/2 - Get patients 
+=======================================================
+localhost:8081/patients/ - create patients
+localhost:8081/patients/2 - Get patients
 localhost:8081/patients/2/exists - Check patients 
-localhost:8081/patients/1 - update Patients 
+localhost:8081/patients/1 - update Patients
 localhost:8081/patients/2 - Delete patients
 
 Appointment Service Enpoints:
+==============================================================
 localhost:8082/appointments/ - Create apintments only after verifying the patient's existence
