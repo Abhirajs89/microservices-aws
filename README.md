@@ -1,14 +1,15 @@
 Microservices in the Project can be dockerize, and images can be pushed to ECR and then deployed on EKS
+=======================================================================================================
 Patient Service:
-o Manages CRUD operations for patients. 
-o Provides a synchronous API to check if a patient exists.
+1) Manages CRUD operations for patients. 
+2) Provides a synchronous API to check if a patient exists.
 
 Appointment Service: 
-o Manages doctor-patient appointments. 
-o Uses Feign Client to communicate synchronously with Patient Service to verify the patient's existence.
+1) Manages doctor-patient appointments. 
+2) Uses Feign Client to communicate synchronously with Patient Service to verify the patient's existence.
 
 Endpoints:
-
+=================================================================
 Patient Service Endpoints
 localhost:8081/patients/ - create patients 
 localhost:8081/patients/2 - Get patients 
