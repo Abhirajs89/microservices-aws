@@ -6,7 +6,11 @@ Patient Service:
 
 Appointment Service: 
 1) Manages doctor-patient appointments. 
-2) Uses Feign Client to communicate synchronously with Patient Service to verify the patient's existence.
+2) Uses Feign Client to communicate synchronously with Patient Service to verify the patient's existence
+3) Sends message to RabbitMQ once appointment is created successfully
+
+Notification Service: 
+1) Listens to RabbitMQ for the messages sent by appointment service and add it to database
 
 Endpoints:
 =================================================================
