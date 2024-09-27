@@ -1,6 +1,7 @@
 package com.abhiraj.appointment_ms.service;
 
 import com.abhiraj.appointment_ms.entity.Appointment;
+import com.abhiraj.appointment_ms.messaging.MesssageProducer;
 import com.abhiraj.appointment_ms.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,9 @@ public class AppointmentService {
     @Autowired
     private PatientServiceClient patientServiceClient;
 
+    @Autowired
+    private MesssageProducer messsageProducer;
+
     public ResponseEntity<?> createAppointment(Appointment appointment) {
         // Check if the patient exists
         ResponseEntity<Boolean> response = patientServiceClient.checkPatientExists(appointment.getPatientId());
@@ -31,6 +35,10 @@ public class AppointmentService {
 
         // If patient exists, save the appointment and return 201 Created
         Appointment savedAppointment = appointmentRepository.save(appointment);
+
+        //Send the Appointment Message to Queue so that Notification Service can act on it asynchronously
+        messsageProducer.sendAppointmentMessage(savedAppointment);
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(savedAppointment);
