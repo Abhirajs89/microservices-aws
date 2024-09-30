@@ -1,5 +1,8 @@
 Microservices in the Project can be dockerize, and images can be pushed to ECR and then deployed on EKS
 =======================================================================================================
+Note: To run these microservices you need to deploy these services on AWS EKS for service registry and discovery.
+If you want to run this on local then you need to add Eureka server and configure it for patient microservice and Appontment microservice for service registry and discovery for synchronous communcation
+
 Patient Service:
 1) Manages CRUD operations for patients. 
 2) Provides a synchronous API to check if a patient exists.
